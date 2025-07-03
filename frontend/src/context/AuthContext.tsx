@@ -1,8 +1,15 @@
 'use client'
-import { signInUser, SignInUserProps } from "@/services/user";
-import { destroyCookie, setCookie } from "nookies";
+import { getMyProfile, signInUser, SignInUserProps } from "@/services/user";
+import { destroyCookie, parseCookies, setCookie } from "nookies";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+
+export interface UserProps {
+  id: string
+  full_name: string
+  email: string
+  role: string
+}
 
 
 interface AuthContextProps {
@@ -10,6 +17,7 @@ interface AuthContextProps {
   isAuthenticated: boolean;
   signIn: (params: SignInUserProps) => Promise<void>;
   signOut: () => void;
+  user?: UserProps
 }
 
 const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
@@ -18,6 +26,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   const [token, setToken] = useState<string | null>(null);
+  const [user, setUser] = useState<UserProps | undefined>(undefined)
 
   useEffect(() => {
     const storedToken = localStorage.getItem("authToken");
@@ -46,6 +55,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     router.push("/signin");
   }
 
+  useEffect(() => {
+    (async () => {
+      const cookies = parseCookies();
+      const token = cookies["@mulhersegura.token"]
+
+      if (token) {
+        try {
+          const data = await getMyProfile()
+
+          setUser(data)
+        } catch { }
+      }
+    })()
+  }, [])
+
   return (
     <AuthContext.Provider
       value={{
@@ -53,6 +77,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         isAuthenticated: !!token,
         signIn,
         signOut,
+        user
       }}
     >
       {children}

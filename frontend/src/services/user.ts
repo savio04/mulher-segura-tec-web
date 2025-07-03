@@ -32,3 +32,14 @@ export async function signInUser(formData: SignInUserProps) {
     throw { error: "Falha, verifique os dados e tente novamente" };
   }
 }
+
+export async function getMyProfile() {
+  try {
+    const response = await api.get("/v1/users/my-profile");
+
+    return response.data.payload
+  } catch (error) {
+    console.log(error)
+    throw { error: "Falha, verifique os dados e tente novamente" };
+  }
+}

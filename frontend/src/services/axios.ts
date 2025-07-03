@@ -1,10 +1,10 @@
 import axios, { AxiosError } from "axios"
 import Router from "next/router";
-import { destroyCookie, parseCookies } from "nookies";
+import { parseCookies } from "nookies";
 
 export function apiClientContext(ctx?: any) {
   const api = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
   });
 
   api.interceptors.request.use(config => {
@@ -13,7 +13,7 @@ export function apiClientContext(ctx?: any) {
 
     try {
       if (token && config.headers) {
-        config.headers.Authorization = `${token}`
+        config.headers.Authorization = `Bearer ${token}`
       }
 
       return config;

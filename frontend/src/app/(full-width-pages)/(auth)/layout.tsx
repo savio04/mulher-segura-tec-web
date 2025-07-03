@@ -16,7 +16,7 @@ export default function AuthLayout({
           {children}
           <div className="lg:w-1/2 w-full h-full bg-brand-950 dark:bg-white/5 lg:grid items-center hidden">
             <div className="relative items-center justify-center  flex z-1">
-              <GridShape />
+              {/* <GridShape /> */}
               <div className="flex flex-col items-center max-w-xs">
                 <Link href="/" className="block mb-4">
                   <h1 className="text-white text-3xl font-bold">Mulher Segura</h1>
