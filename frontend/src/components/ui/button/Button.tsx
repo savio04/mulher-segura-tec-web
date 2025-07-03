@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import { ClipLoader } from "react-spinners";
 
 interface ButtonProps {
   children: ReactNode; // Button text or content
@@ -8,6 +9,7 @@ interface ButtonProps {
   endIcon?: ReactNode; // Icon after the text
   onClick?: () => void; // Click handler
   disabled?: boolean; // Disabled state
+  loading?: boolean
   className?: string; // Disabled state
 }
 
@@ -20,6 +22,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   className = "",
   disabled = false,
+  loading = false,
 }) => {
   // Size Classes
   const sizeClasses = {
@@ -37,17 +40,21 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      className={`inline-flex items-center justify-center font-medium gap-2 rounded-lg transition ${className} ${
-        sizeClasses[size]
-      } ${variantClasses[variant]} ${
-        disabled ? "cursor-not-allowed opacity-50" : ""
-      }`}
+      className={`inline-flex items-center justify-center font-medium gap-2 rounded-lg transition ${className} ${sizeClasses[size]
+        } ${variantClasses[variant]} ${disabled ? "cursor-not-allowed opacity-50" : ""
+        }`}
       onClick={onClick}
-      disabled={disabled}
+      disabled={loading || disabled}
     >
-      {startIcon && <span className="flex items-center">{startIcon}</span>}
-      {children}
-      {endIcon && <span className="flex items-center">{endIcon}</span>}
+      {loading ? (
+        <ClipLoader size={20} color="#fff" />
+      ) : (
+        <>
+          {startIcon && <span className="flex items-center">{startIcon}</span>}
+          {children}
+          {endIcon && <span className="flex items-center">{endIcon}</span>}
+        </>
+      )}
     </button>
   );
 };
