@@ -3,6 +3,7 @@ import { getMyProfile, signInUser, SignInUserProps } from "@/services/user";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { api } from "@/services/axios";
 
 export interface UserProps {
   id: string
@@ -40,6 +41,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       email,
       password,
     });
+
+    api.defaults.headers['Authorization'] = `Bearer ${data.token}`
 
     const userData = await getMyProfile()
 
