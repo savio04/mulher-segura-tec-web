@@ -3,7 +3,7 @@
 Aplicação web para o projeto **Mulher Segura**, composta por:  
 
 - 🌐 **Frontend** em [Next.js](https://nextjs.org/)  
-- ⚙️ **Backend** em [Node.js](https://nodejs.org/) com API REST  
+- ⚙️  **Backend** em [Node.js](https://nodejs.org/) com API REST  
 - 🐘 Banco de dados **PostgreSQL** (via Docker Compose)  
 
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)

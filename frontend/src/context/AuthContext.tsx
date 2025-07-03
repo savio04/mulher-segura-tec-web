@@ -41,6 +41,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       password,
     });
 
+    const userData = await getMyProfile()
+
+    setUser(userData)
+
     setCookie(undefined, "@mulhersegura.token", data.token, {
       maxAge: 60 * 60 * 48, // 48 horas
       path: "/",
