@@ -44,14 +44,14 @@ export default function UserInfoCard() {
               </p>
             </div>
 
-            <div>
-              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                Telefone
-              </p>
-              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                +09 363 398 46
-              </p>
-            </div>
+            {/* <div> */}
+            {/*   <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400"> */}
+            {/*     Telefone */}
+            {/*   </p> */}
+            {/*   <p className="text-sm font-medium text-gray-800 dark:text-white/90"> */}
+            {/*     +09 363 398 46 */}
+            {/*   </p> */}
+            {/* </div> */}
 
             <div>
               <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
@@ -115,10 +115,10 @@ export default function UserInfoCard() {
                     <Input type="text" defaultValue={user?.email} />
                   </div>
 
-                  <div className="col-span-2 lg:col-span-1">
-                    <Label>Telefone</Label>
-                    <Input type="text" defaultValue="+09 363 398 46" />
-                  </div>
+                  {/* <div className="col-span-2 lg:col-span-1"> */}
+                  {/*   <Label>Telefone</Label> */}
+                  {/*   <Input type="text" defaultValue="+09 363 398 46" /> */}
+                  {/* </div> */}
 
                   <div className="col-span-1">
                     <Label>Perfil</Label>
@@ -129,10 +129,10 @@ export default function UserInfoCard() {
             </div>
             <div className="flex items-center gap-3 px-2 mt-6 lg:justify-end">
               <Button size="sm" variant="outline" onClick={closeModal}>
-                Close
+                Fechar
               </Button>
               <Button size="sm" onClick={handleSave}>
-                Save Changes
+                Salvar alterações
               </Button>
             </div>
           </form>

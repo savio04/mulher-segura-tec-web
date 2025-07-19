@@ -4,8 +4,8 @@ import './globals.css';
 import { SidebarProvider } from '@/context/SidebarContext';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { AuthProvider } from '@/context/AuthContext';
+import { DeviceProvider } from '@/context/DeviceContext';
 import { ToastContainer } from 'react-toastify';
-
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -19,15 +19,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${outfit.className} dark:bg-gray-900`}>
-        <ThemeProvider>
-          <AuthProvider>
-            <ToastContainer
-              style={{ fontSize: "1.4rem" }}
-              hideProgressBar
-            />
-            <SidebarProvider>{children}</SidebarProvider>
-          </AuthProvider>
-        </ThemeProvider>
+        <AuthProvider>
+          <DeviceProvider>
+            <ThemeProvider>
+              <ToastContainer
+                style={{ fontSize: "1.4rem" }}
+                hideProgressBar
+              />
+              <SidebarProvider>{children}</SidebarProvider>
+            </ThemeProvider>
+          </DeviceProvider>
+        </AuthProvider>
       </body>
     </html>
   );

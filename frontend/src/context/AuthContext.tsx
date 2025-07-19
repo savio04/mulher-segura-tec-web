@@ -10,8 +10,12 @@ export interface UserProps {
   full_name: string
   email: string
   role: string
+  device?: {
+    id: string
+    status: string
+    secret: string
+  }
 }
-
 
 interface AuthContextProps {
   token: string | null;
