@@ -1,8 +1,14 @@
 import { User } from "../models/user";
 
+export interface UpdateParams {
+  full_name?: string
+  email?: string
+}
+
 export abstract class UserRepository {
   abstract create(params: Omit<User, "id">): Promise<unknown>
   abstract findByEmail(email: string): Promise<User | null>
   abstract getMyProfile(id: string): Promise<unknown>
   abstract findById(id: string): Promise<User>
+  abstract update(id: string, params: UpdateParams): Promise<void>
 }

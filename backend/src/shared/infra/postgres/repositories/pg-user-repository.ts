@@ -1,6 +1,6 @@
 import { PgConnection } from "..";
 import { User } from "../../../../modules/user/models/user";
-import { UserRepository } from "../../../../modules/user/repositories/user-repository";
+import { UpdateParams, UserRepository } from "../../../../modules/user/repositories/user-repository";
 
 export class PgUserRepository implements UserRepository {
   async create(params: Omit<User, "id">): Promise<unknown> {
@@ -27,7 +27,19 @@ export class PgUserRepository implements UserRepository {
       [id]
     )
 
-    return result.rows[0] as User
+    const user = result.rows[0] as User
+
+    if (!user) return null
+
+    const device = await PgConnection.query(
+      'SELECT * FROM devices WHERE user_id = $1',
+      [user.id]
+    )
+
+    return {
+      ...user,
+      device: device.rows[0]
+    }
   }
 
   async findById(id: string): Promise<User> {
@@ -37,5 +49,22 @@ export class PgUserRepository implements UserRepository {
     )
 
     return result.rows[0] as User
+  }
+
+  async update(id: string, params: UpdateParams): Promise<void> {
+    if (Object.keys(params).length === 0) {
+      return
+    }
+
+    const setClauses = Object.keys(params)
+      .map((key, index) => `${key} = $${index + 2}`)
+      .join(", ")
+
+    const values = [id, ...Object.values(params)]
+
+    const query = `UPDATE users SET ${setClauses} WHERE id = $1`
+
+    await PgConnection.query(query, values)
+
   }
 }

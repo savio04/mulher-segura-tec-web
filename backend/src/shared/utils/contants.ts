@@ -10,3 +10,8 @@ export enum HTTP_STATUS {
 }
 
 export const TOKEN_EXPIRATION = "2d" //2 days
+
+export enum DeviceStatus {
+  IDLE = "IDLE",
+  LINKED = "LINKED"
+}

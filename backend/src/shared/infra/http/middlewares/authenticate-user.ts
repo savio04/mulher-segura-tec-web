@@ -1,4 +1,4 @@
-import { NextFunction, Request, response, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 import { verify } from "jsonwebtoken"
 import { PgUserRepository } from "../../postgres/repositories/pg-user-repository"
 import { HTTP_STATUS } from "../../../utils/contants"
@@ -15,21 +15,24 @@ export async function authenticated(
   const authHeader = request.headers.authorization
 
   if (!authHeader) {
-    return response.status(HTTP_STATUS.UNAUTHORIZED).json({
+    response.status(HTTP_STATUS.UNAUTHORIZED).json({
       error: "Token inválido"
     })
+
+    return
   }
 
   const [, token] = authHeader.split(" ")
-
 
   try {
     const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET
 
     if (!ACCESS_TOKEN_SECRET) {
-      return response.status(HTTP_STATUS.UNAUTHORIZED).json({
+      response.status(HTTP_STATUS.UNAUTHORIZED).json({
         error: "Token inválido"
       })
+
+      return
     }
 
     const { id } = verify(token, ACCESS_TOKEN_SECRET, {
@@ -46,9 +49,9 @@ export async function authenticated(
       role: user.role,
     }
 
-    return next()
+    next()
   } catch (err) {
-    return response.status(HTTP_STATUS.UNAUTHORIZED).json({
+    response.status(HTTP_STATUS.UNAUTHORIZED).json({
       error: "Token inválido"
     })
   }
