@@ -31,6 +31,8 @@ export function HomeComponent() {
 
   // 🚨 Simula alertas aleatórios
   useEffect(() => {
+    if (!connected) return
+
     const alertTypes = [
       { type: "FALL", message: "Queda detectada!" },
       { type: "NOISE", message: "Som alto detectado!" },
@@ -49,7 +51,7 @@ export function HomeComponent() {
     }, 5000);
 
     return () => clearInterval(alertInterval);
-  }, []);
+  }, [connected]);
 
   function getFrequencyFromId(id: string) {
     const sum = id.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
