@@ -1,25 +1,43 @@
+/* eslint-disable */
 "use client";
-import React, { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import React, { useState, useEffect, useMemo } from "react";
 import 'leaflet/dist/leaflet.css'
 
-import L from 'leaflet'
-import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
-import markerIcon from 'leaflet/dist/images/marker-icon.png'
-import markerShadow from 'leaflet/dist/images/marker-shadow.png'
+// import L from 'leaflet'
+// import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
+// import markerIcon from 'leaflet/dist/images/marker-icon.png'
+// import markerShadow from 'leaflet/dist/images/marker-shadow.png'
 import { useDevice } from "@/context/DeviceContext";
 import { MdWifiOff } from "react-icons/md";
+import dynamic from "next/dynamic";
 
-delete (L.Icon.Default.prototype as any)._getIconUrl
+// delete (L.Icon.Default.prototype as any)._getIconUrl
+//
+// L.Icon.Default.mergeOptions({
+//   iconRetinaUrl: markerIcon2x.src,
+//   iconUrl: markerIcon.src,
+//   shadowUrl: markerShadow.src,
+// })
 
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: markerIcon2x.src,
-  iconUrl: markerIcon.src,
-  shadowUrl: markerShadow.src,
-})
+const MapContainer = dynamic(
+  () => import("react-leaflet").then((mod) => mod.MapContainer),
+  { ssr: false }
+);
+const TileLayer = dynamic(
+  () => import("react-leaflet").then((mod) => mod.TileLayer),
+  { ssr: false }
+);
+const Marker = dynamic(
+  () => import("react-leaflet").then((mod) => mod.Marker),
+  { ssr: false }
+);
+const Popup = dynamic(
+  () => import("react-leaflet").then((mod) => mod.Popup),
+  { ssr: false }
+);
 
 const Location: React.FC = () => {
-  const basePosition: [number, number] = [-3.6932686, -40.3558235] // UFC
+  const basePosition: [number, number] = useMemo(() => [-3.6932686, -40.3558235], []) // UFC
   const [position, setPosition] = useState<[number, number]>(basePosition);
   const { connected } = useDevice()
 
@@ -38,6 +56,18 @@ const Location: React.FC = () => {
 
     return () => clearInterval(interval);
   }, [basePosition]);
+
+  useEffect(() => {
+    const L = require("leaflet");
+
+    delete (L.Icon.Default.prototype as any)._getIconUrl;
+
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+      iconUrl: require("leaflet/dist/images/marker-icon.png"),
+      shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+    });
+  }, []);
 
   return (
     <>

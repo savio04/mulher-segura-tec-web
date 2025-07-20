@@ -41,6 +41,7 @@ export default function SignUpForm() {
         password
       })
     } catch (error) {
+      console.log(error)
       toast.error('Falhar ao registrar usuário', {
         position: "top-right",
         autoClose: 5000,

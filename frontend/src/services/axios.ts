@@ -1,8 +1,11 @@
-import axios, { AxiosError } from "axios"
+import axios, { AxiosError, InternalAxiosRequestConfig } from "axios"
+import { NextApiRequest, NextPageContext } from "next";
 import Router from "next/router";
 import { parseCookies } from "nookies";
 
-export function apiClientContext(ctx?: any) {
+type ContextType = Pick<NextPageContext, "req"> | { req: NextApiRequest; } | null | undefined
+
+export function apiClientContext(ctx?: ContextType) {
   const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL,
   });
@@ -20,6 +23,8 @@ export function apiClientContext(ctx?: any) {
     } catch (e) {
       console.log({ error: e })
     }
+
+    return {} as InternalAxiosRequestConfig<unknown> | Promise<InternalAxiosRequestConfig<unknown>>
   })
 
   api.interceptors.response.use((response) => {

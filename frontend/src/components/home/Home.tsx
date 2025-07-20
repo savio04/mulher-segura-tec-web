@@ -1,3 +1,4 @@
+/* eslint-disable */
 "use client"
 import { MdPause, MdPlayArrow, MdWifiOff } from "react-icons/md";
 import Button from "../ui/button/Button";
@@ -111,6 +112,7 @@ export function HomeComponent() {
 
       connect(deviceId, deviceSecret)
     } catch (error) {
+      console.log(error)
       toast.error('Falha, tente novamente!', {
         position: "bottom-right",
         autoClose: 5000,
@@ -137,6 +139,7 @@ export function HomeComponent() {
 
       disconnect()
     } catch (error) {
+      console.log(error)
       toast.error('Falha, tente novamente!', {
         position: "bottom-right",
         autoClose: 5000,

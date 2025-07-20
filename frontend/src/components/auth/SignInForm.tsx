@@ -34,6 +34,7 @@ export default function SignInForm() {
     try {
       await signIn(data)
     } catch (error) {
+      console.log(error)
       setLoading(false)
       toast.error('Senha ou email invalidos', {
         position: "top-right",
