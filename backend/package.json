@@ -1,6 +1,7 @@
 {
 	"scripts": {
-		"dev:server": "tsx watch src/shared/infra/http/server.ts"
+		"dev:server": "tsx watch src/shared/infra/http/server.ts",
+		"build": "tsup-node"
 	},
 	"dependencies": {
 		"bcrypt": "^6.0.0",
@@ -17,6 +18,7 @@
 		"@types/express": "^5.0.3",
 		"@types/jsonwebtoken": "^9.0.10",
 		"@types/pg": "^8.15.4",
+		"tsup": "^8.5.0",
 		"tsx": "^4.20.3",
 		"typescript": "^5.8.3"
 	}
