@@ -62,11 +62,15 @@ const Location: React.FC = () => {
 
     delete (L.Icon.Default.prototype as any)._getIconUrl;
 
+    const markerIcon2x = require('leaflet/dist/images/marker-icon-2x.png')
+    const markerIcon = require('leaflet/dist/images/marker-icon.png')
+    const markerShadow = require('leaflet/dist/images/marker-shadow.png')
+
     L.Icon.Default.mergeOptions({
-      iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-      iconUrl: require("leaflet/dist/images/marker-icon.png"),
-      shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
-    });
+      iconRetinaUrl: markerIcon2x.default.src,
+      iconUrl: markerIcon.default.src,
+      shadowUrl: markerShadow.default.src,
+    })
   }, []);
 
   return (
