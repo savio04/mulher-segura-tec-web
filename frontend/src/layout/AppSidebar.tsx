@@ -292,7 +292,7 @@ const AppSidebar: React.FC = () => {
         <Link href="/">
           {isExpanded || isHovered || isMobileOpen ? (
             <>
-              <h1 className="text-white text-3xl font-bold">Mulher Segura</h1>
+              <h1 className="text-gray-900 dark:text-white/90 text-3xl font-bold">Mulher Segura</h1>
             </>
           ) : (
             <PiSecurityCameraThin className="mx-auto mb-4 text-white" size={40} />
