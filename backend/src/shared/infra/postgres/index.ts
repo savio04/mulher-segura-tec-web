@@ -12,6 +12,9 @@ export class PgConnection {
         host: process.env.POSTGRES_HOST,
         password: process.env.POSTGRES_PASSWORD,
         database: process.env.POSTGRES_DB,
+        ssl: {
+          rejectUnauthorized: false,
+        },
       });
     }
 
